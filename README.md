@@ -35,4 +35,14 @@ model = LokoLM(vocab_size=256, block_size=512,
 logits, loss = model(idx, targets)
 ```
 
-Full architecture and training documentation lives in the project [docs/](../docs/).
+Full architecture and training documentation lives in the
+[lokolm-docs](https://github.com/larnova-open-source/lokolm-docs) repository.
+
+## Contributing & license
+
+Contributions focus on **training data** and **training checkpoints** — and all data must be
+**unlabelled raw text**. See [CONTRIBUTING.md](CONTRIBUTING.md). Released under the
+[MIT License](LICENSE) © 2026 Mahmud Suberu / Larnova.
+
+Maintained by **Mahmud Suberu** — Founder & CEO of Larnova. Contact:
+[LinkedIn](https://www.linkedin.com/in/mahmud-adinoyi-684020235/).
