@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Training artifacts
+*.pt
+*.ckpt
+ckpt.pt
+
+# Local data (uncomment if you keep large corpora out of git)
+# input.txt
+
+# Tooling
+.pytest_cache/
+.ipynb_checkpoints/
+.DS_Store
