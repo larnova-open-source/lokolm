@@ -19,16 +19,18 @@ from lokolm import LokoLM
 # -----------------------------------------------------------------------------
 # Config
 # -----------------------------------------------------------------------------
-# Model
+# Model — GPT-2-small-class (~85M params at this byte-level vocab)
 vocab_size  = 256        # byte-level vocab for this demo
-block_size   = 128        # context length
-d_model      = 384
-n_heads      = 6
-n_layers     = 6
+block_size   = 512        # context length
+d_model      = 768
+n_heads      = 12
+n_layers     = 12
 mlp_ratio    = 4
 
 # Optimization
-batch_size   = 32
+# At this size + context, batch 32 can OOM on smaller GPUs. Start at 16 and raise
+# it if VRAM allows (or use gradient accumulation — see the training docs).
+batch_size   = 16
 max_iters    = 5000
 eval_interval = 250
 eval_iters   = 50
@@ -149,5 +151,14 @@ for it in range(max_iters):
     scaler.update()
 
 print("done.")
-torch.save(model.state_dict(), "ckpt.pt")
+# Save the config alongside the weights so inference (sample.py) can rebuild the
+# exact model without hardcoding a config that must be kept in sync with this file.
+checkpoint = {
+    "model": model.state_dict(),
+    "config": dict(
+        vocab_size=vocab_size, block_size=block_size, d_model=d_model,
+        n_heads=n_heads, n_layers=n_layers, mlp_ratio=mlp_ratio,
+    ),
+}
+torch.save(checkpoint, "ckpt.pt")
 print("saved checkpoint to ckpt.pt")
